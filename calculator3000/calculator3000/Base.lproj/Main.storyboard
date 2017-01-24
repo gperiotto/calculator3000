@@ -141,6 +141,9 @@
                                 <rect key="frame" x="191.5" y="517.5" width="76" height="141.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <state key="normal" title="↵"/>
+                                <connections>
+                                    <action selector="enter" destination="BYZ-38-t0r" eventType="touchUpInside" id="F1i-1f-sQa"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3H1-6T-OaX">
                                 <rect key="frame" x="275.5" y="517.5" width="75.5" height="141.5"/>

@@ -13,12 +13,16 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        if (self.calcEngine == nil) {
+            
+            self.calcEngine = CalculatorEngine();
+        }
     }
 
     //interface builder
     @IBOutlet weak var labelDisplay: UILabel!
     
-    
+    var calcEngine : CalculatorEngine?
     var userTyped:Bool = false;
     
     
@@ -34,15 +38,37 @@ class ViewController: UIViewController {
             labelDisplay.text = digit;
             userTyped = true;
         }
+    }
+    
+    
+    
+    
+    @IBAction func enter() {
         
+        userTyped = false;
         
+        //self.calcEngine!.operandStack.append("\(displayValue)";//1:27
         
     }
     
+    
+    
+    
+    
     @IBAction func operation(_ sender: UIButton) {
         
+        let operation = sender.currentTitle!;
         
+        var displayValue : Double {
         
+            
+            get{
+                return (NumberFormatter().number(from: labelDisplay.text!)?.doubleValue)!
+            }
+            set(newValue){
+                labelDisplay.text = "\(newValue)";
+            }
+        }
     }
     
     
