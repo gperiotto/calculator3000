@@ -50,16 +50,23 @@ class ViewController: UIViewController {
         }
     }
     
-    
+    // ENTER KEY - onClick action
     @IBAction func enter() {
         
         userTyped = false;
         
-        self.calcEngine!.operandStack.append(displayValue);
+        //Ensures if operandStack[0] is 0.0 to replace this value, else append new value
+        if(self.calcEngine!.operandStack.first == 0.0 && self.calcEngine!.operandStack.count == 1){
+            self.calcEngine!.operandStack[0] = (NumberFormatter().number(from: labelDisplay.text!)?.doubleValue)!
+            print("replacing operandStack[0]")
+        }else{
+            self.calcEngine!.operandStack.append(displayValue);
+        print("appending to operandStack")
+        }
+        
         
         print("Operand stack on engine =\(self.calcEngine!.operandStack)");
     }
-    
     
     
     
@@ -79,14 +86,7 @@ class ViewController: UIViewController {
     
     
     
-    
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
+    //Data Passing
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let newVC: tapeViewController = segue.destination as! tapeViewController;
         let calcHistory = labelDisplay.text;
@@ -94,6 +94,12 @@ class ViewController: UIViewController {
         newVC.msg = calcHistory!;
     }
 
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
 
 }
  
