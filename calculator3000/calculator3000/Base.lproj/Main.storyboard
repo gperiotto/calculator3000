@@ -128,6 +128,9 @@
                                 <rect key="frame" x="24" y="517.5" width="76" height="141.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <state key="normal" title="tape"/>
+                                <connections>
+                                    <segue destination="mAG-df-L0t" kind="show" id="rlu-OD-RMm"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cNa-PD-PYG">
                                 <rect key="frame" x="108" y="517.5" width="75.5" height="141.5"/>
@@ -238,6 +241,65 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="24.800000000000001" y="36.431784107946029"/>
+        </scene>
+        <!--Tape View Controller-->
+        <scene sceneID="AWT-oF-dK1">
+            <objects>
+                <viewController id="mAG-df-L0t" customClass="tapeViewController" customModule="calculator3000" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="0hc-Mk-fbn"/>
+                        <viewControllerLayoutGuide type="bottom" id="sDP-9E-vfY"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZvR-g2-Cb8">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s2o-ef-qf2">
+                                <rect key="frame" x="16" y="608" width="343" height="39"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <state key="normal" title="Close"/>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="C1u-1L-kdp"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6sp-t7-6by">
+                                <rect key="frame" x="311" y="28" width="48" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Clear"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12+2" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EvI-v0-gY7">
+                                <rect key="frame" x="16" y="78" width="343" height="522"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="EvI-v0-gY7" secondAttribute="trailing" id="3du-Wk-YC5"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="6sp-t7-6by" secondAttribute="trailing" id="J3d-q1-BYN"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="s2o-ef-qf2" secondAttribute="trailing" id="KFm-yK-Xsx"/>
+                            <constraint firstItem="6sp-t7-6by" firstAttribute="leading" secondItem="ZvR-g2-Cb8" secondAttribute="leadingMargin" constant="100" id="RNd-6Y-LrV"/>
+                            <constraint firstItem="sDP-9E-vfY" firstAttribute="top" secondItem="EvI-v0-gY7" secondAttribute="bottom" constant="67" id="SKN-Mk-G1I"/>
+                            <constraint firstItem="EvI-v0-gY7" firstAttribute="top" secondItem="0hc-Mk-fbn" secondAttribute="bottom" constant="58" id="Z9b-bd-f0O"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="EvI-v0-gY7" secondAttribute="leading" id="bjt-yM-UwL"/>
+                            <constraint firstItem="sDP-9E-vfY" firstAttribute="top" secondItem="s2o-ef-qf2" secondAttribute="bottom" constant="20" id="fvN-xI-K4T"/>
+                            <constraint firstItem="6sp-t7-6by" firstAttribute="top" secondItem="0hc-Mk-fbn" secondAttribute="bottom" constant="8" id="iRo-Wu-F0K"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="s2o-ef-qf2" secondAttribute="leading" id="mh3-Qp-lII"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="RNd-6Y-LrV"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="labelTape" destination="EvI-v0-gY7" id="qV3-Ly-PKX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7YY-KH-7dQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="997.10144927536237" y="35.869565217391305"/>
         </scene>
     </scenes>
 </document>

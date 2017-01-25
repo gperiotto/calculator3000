@@ -41,14 +41,23 @@ class ViewController: UIViewController {
     }
     
     
+    var displayValue : Double {
+        get{
+            return (NumberFormatter().number(from: labelDisplay.text!)?.doubleValue)!
+        }
+        set(newValue){
+            labelDisplay.text = "\(newValue)";
+        }
+    }
     
     
     @IBAction func enter() {
         
         userTyped = false;
         
-        //self.calcEngine!.operandStack.append("\(displayValue)";//1:27
+        self.calcEngine!.operandStack.append(displayValue);
         
+        print("Operand stack on engine =\(self.calcEngine!.operandStack)");
     }
     
     
@@ -59,16 +68,13 @@ class ViewController: UIViewController {
         
         let operation = sender.currentTitle!;
         
-        var displayValue : Double {
-        
-            
-            get{
-                return (NumberFormatter().number(from: labelDisplay.text!)?.doubleValue)!
-            }
-            set(newValue){
-                labelDisplay.text = "\(newValue)";
-            }
+        if(userTyped){
+            enter();
         }
+        
+        self.displayValue = (self.calcEngine?.operate(operation: operation))!;
+        
+        enter();
     }
     
     
@@ -78,6 +84,14 @@ class ViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let newVC: tapeViewController = segue.destination as! tapeViewController;
+        let calcHistory = labelDisplay.text;
+    
+        newVC.msg = calcHistory!;
     }
 
 

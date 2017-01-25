@@ -13,6 +13,7 @@
 		B13352241E37B9ED000CB36F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B13352231E37B9ED000CB36F /* Assets.xcassets */; };
 		B13352271E37B9ED000CB36F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B13352251E37B9ED000CB36F /* LaunchScreen.storyboard */; };
 		B1C401501E37E92300999752 /* CalculatorEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C4014F1E37E92300999752 /* CalculatorEngine.swift */; };
+		B1C401521E38282C00999752 /* tapeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C401511E38282C00999752 /* tapeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		B13352261E37B9ED000CB36F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B13352281E37B9ED000CB36F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B1C4014F1E37E92300999752 /* CalculatorEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalculatorEngine.swift; sourceTree = "<group>"; };
+		B1C401511E38282C00999752 /* tapeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tapeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				B13352251E37B9ED000CB36F /* LaunchScreen.storyboard */,
 				B13352281E37B9ED000CB36F /* Info.plist */,
 				B1C4014F1E37E92300999752 /* CalculatorEngine.swift */,
+				B1C401511E38282C00999752 /* tapeViewController.swift */,
 			);
 			path = calculator3000;
 			sourceTree = "<group>";
@@ -139,6 +142,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1C401521E38282C00999752 /* tapeViewController.swift in Sources */,
 				B133521F1E37B9ED000CB36F /* ViewController.swift in Sources */,
 				B133521D1E37B9ED000CB36F /* AppDelegate.swift in Sources */,
 				B1C401501E37E92300999752 /* CalculatorEngine.swift in Sources */,
