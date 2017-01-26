@@ -90,21 +90,32 @@ class ViewController: UIViewController {
         }
     }
     
-    //SIN COS TAN SWITCH  - State Listener
+    //SinCosTan SWITCH  - State Listener
     @IBAction func sinCosTanSwitch(_ sender: UISwitch) {
     
         if(sender.isOn){
-            sinBtnOutlet.setTitle("Sin", for: .normal);
-            cosBtnOutlet.setTitle("Cos", for: .normal);
-            tanBtnOutlet.setTitle("Tan", for: .normal);
-        }else{
             sinBtnOutlet.setTitle("ArcSin", for: .normal);
             cosBtnOutlet.setTitle("ArcCos", for: .normal);
             tanBtnOutlet.setTitle("ArcTan", for: .normal);
+            
+        }else{
+            
+            sinBtnOutlet.setTitle("Sin", for: .normal);
+            cosBtnOutlet.setTitle("Cos", for: .normal);
+            tanBtnOutlet.setTitle("Tan", for: .normal);
         }
         
     }
     
+    @IBAction func degRadSwitch(_ sender: UISegmentedControl) {
+        if (sender.selectedSegmentIndex == 0){
+            
+            self.calcEngine?.degRadState = 0;
+        }else{
+            
+            self.calcEngine?.degRadState = 1;
+        }
+    }
     
     //Check if OPERANDSTACK has default val of 0.0
     func checkOperandStackDefaultValues() -> Bool{

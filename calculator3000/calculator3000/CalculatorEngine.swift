@@ -13,6 +13,7 @@ class CalculatorEngine:NSObject{
 
     var operandStack = Array<Double>();
     var myPi = M_PI;
+    var degRadState = 0;
     
     func updateStackWithValue(value:Double){
         self.operandStack.append(value);
@@ -93,12 +94,26 @@ class CalculatorEngine:NSObject{
             return 0;
             
         case "Sin":
-            print("sin");
-            return 0;
+            return trigonometryCalculator(state: "sin");
+            
         case "ArcSin":
-            print("arc sin");
-            return 0;
+            return trigonometryCalculator(state: "asin");
+            
+        case "Cos":
+            return trigonometryCalculator(state: "cos");
+            
+        case "ArcCos":
+            return trigonometryCalculator(state: "acos");
+            
+            
+        case "Tan":
+            return trigonometryCalculator(state: "tan");
+            
+        case "ArcTan":
+            return trigonometryCalculator(state: "atan");
         
+            
+            
         default:break
             
         }
@@ -107,4 +122,56 @@ class CalculatorEngine:NSObject{
         
         
     }
+    
+    func trigonometryCalculator (state:String) -> Double{
+        
+        var result: Double = 0;
+        
+        
+        if(degRadState==1){
+            if(state == "sin"){
+                result = sin(self.operandStack.removeLast() * myPi / 180);
+            }else if(state == "asin"){
+                result = asin(self.operandStack.removeLast()) * (180 / myPi);
+            }
+            
+            if (state == "cos"){
+                result = cos(self.operandStack.removeLast() * myPi / 180);
+            }else if(state == "acos"){
+                result = acos(self.operandStack.removeLast()) * (180 / myPi);
+            }
+            
+            if (state == "tan"){
+                result = tan(self.operandStack.removeLast() * myPi / 180);
+            }else if(state == "atan"){
+                result = atan(self.operandStack.removeLast()) * (180 / myPi);
+            }
+        }else{
+            
+            if(state == "sin"){
+                result = sin(self.operandStack.removeLast());
+            }else if(state == "asin"){
+                result = asin(self.operandStack.removeLast());
+            }
+            
+            if (state == "cos"){
+                result = cos(self.operandStack.removeLast());
+            }else if(state == "acos"){
+                result = acos(self.operandStack.removeLast());
+            }
+            
+            if (state == "tan"){
+                result = tan(self.operandStack.removeLast());
+            }else if(state == "atan"){
+                result = atan(self.operandStack.removeLast());
+            }
+            
+        }
+        
+        
+        return (result * 100000000).rounded() / 100000000;
+    }
+    
+    
+    
 }
