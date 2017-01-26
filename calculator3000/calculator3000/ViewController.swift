@@ -21,9 +21,11 @@ class ViewController: UIViewController {
 
     //interface builder
     @IBOutlet weak var labelDisplay: UILabel!
+    @IBOutlet weak var decimalPointOutlet: UIButton!
     
     var calcEngine : CalculatorEngine?
     var userTyped:Bool = false;
+    var decimalPointButtonPressed:Bool = false;
     
     
     //onClick Listener
@@ -56,7 +58,7 @@ class ViewController: UIViewController {
         userTyped = false;
         
         //Ensures if operandStack[0] is 0.0 to replace this value, else append new value
-        if(self.calcEngine!.operandStack.first == 0.0 && self.calcEngine!.operandStack.count == 1){
+        if(checkOperandStackDefaultValues()){
             self.calcEngine!.operandStack[0] = (NumberFormatter().number(from: labelDisplay.text!)?.doubleValue)!
             print("replacing operandStack[0]")
         }else{
@@ -64,11 +66,38 @@ class ViewController: UIViewController {
         print("appending to operandStack")
         }
         
-        
+        decimalPointButtonPressed = false;
+        decimalPointOutlet.isEnabled = true;
         print("Operand stack on engine =\(self.calcEngine!.operandStack)");
     }
     
     
+    
+    //DECIMAL POINT KEY - onClick Action
+    @IBAction func decimalPointClicked(_ sender: UIButton) {
+
+        if(checkOperandStackDefaultValues()){
+            labelDisplay.text = "0.";
+            userTyped = true;
+        }else{
+            if(userTyped && (labelDisplay.text?.range(of: ".")) == nil ){
+                labelDisplay.text = labelDisplay.text! + ".";
+            }else if(!userTyped && (labelDisplay.text?.range(of: ".")) == nil ){
+                labelDisplay.text = "0.";
+                userTyped = true;
+            }
+        }
+        
+    }
+    
+    
+    func checkOperandStackDefaultValues() -> Bool{
+        if(self.calcEngine!.operandStack.first == 0.0 && self.calcEngine!.operandStack.count == 1){
+            return true;
+        }else{
+            return false;
+        }
+    }
     
     
     @IBAction func operation(_ sender: UIButton) {

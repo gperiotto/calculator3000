@@ -22,42 +22,55 @@ class CalculatorEngine:NSObject{
         
         
         switch operation{
-            
+           
+        //multiplication
         case "×":
             if (operandStack.count >= 2){
                 return self.operandStack.removeLast() * self.operandStack.removeLast()
             }
             
+        //division
         case "÷":
             
             if (operandStack.count >= 2){
                 return self.operandStack.removeFirst() / self.operandStack.removeLast()
             }
             
+        //addition
         case "+":
             if (operandStack.count >= 2){
                 return self.operandStack.removeLast() + self.operandStack.removeLast()
             }
             
+        //subtraction
         case "−":
             if (operandStack.count >= 2){
                 return self.operandStack.removeFirst() - self.operandStack.removeLast()
             }
             
+        //square root
         case "√":
             return self.operandStack.removeLast().squareRoot();
             
+        //number squared
         case "x²":
             let square:Double = self.operandStack.last! * self.operandStack.last!;
             self.operandStack.removeLast();
             return square;
             
+        //reciprocal
         case "x⁻¹":
             return 1.0 / self.operandStack.removeLast();
             
+        //sign inversion
         case "+/-":
             return self.operandStack.removeLast() * -1;
-            
+        
+        //log base 10
+        case "log₁₀":
+            return log10(self.operandStack.removeLast());
+         
+        //clear last
         case "C":
             if(self.operandStack.count < 2){
                 self.operandStack.removeAll();
@@ -68,11 +81,12 @@ class CalculatorEngine:NSObject{
                 self.operandStack.removeLast();
                 return returnME!;
             }
-            
+        
+        //clear all
         case "AC":
             self.operandStack.removeAll();
             return 0;
-            
+        
         default:break
             
         }
