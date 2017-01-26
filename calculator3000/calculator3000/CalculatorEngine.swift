@@ -12,6 +12,7 @@ import UIKit
 class CalculatorEngine:NSObject{
 
     var operandStack = Array<Double>();
+    var myPi = M_PI;
     
     func updateStackWithValue(value:Double){
         self.operandStack.append(value);
@@ -69,7 +70,11 @@ class CalculatorEngine:NSObject{
         //log base 10
         case "log₁₀":
             return log10(self.operandStack.removeLast());
-         
+            
+        //PI
+        case "π":
+            return ((self.operandStack.removeLast() * myPi) * 100000000).rounded() / 100000000;
+            
         //clear last
         case "C":
             if(self.operandStack.count < 2){
@@ -85,6 +90,13 @@ class CalculatorEngine:NSObject{
         //clear all
         case "AC":
             self.operandStack.removeAll();
+            return 0;
+            
+        case "Sin":
+            print("sin");
+            return 0;
+        case "ArcSin":
+            print("arc sin");
             return 0;
         
         default:break

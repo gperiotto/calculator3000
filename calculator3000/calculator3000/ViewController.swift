@@ -22,6 +22,9 @@ class ViewController: UIViewController {
     //interface builder
     @IBOutlet weak var labelDisplay: UILabel!
     @IBOutlet weak var decimalPointOutlet: UIButton!
+    @IBOutlet weak var tanBtnOutlet: UIButton!
+    @IBOutlet weak var cosBtnOutlet: UIButton!
+    @IBOutlet weak var sinBtnOutlet: UIButton!
     
     var calcEngine : CalculatorEngine?
     var userTyped:Bool = false;
@@ -60,17 +63,15 @@ class ViewController: UIViewController {
         //Ensures if operandStack[0] is 0.0 to replace this value, else append new value
         if(checkOperandStackDefaultValues()){
             self.calcEngine!.operandStack[0] = (NumberFormatter().number(from: labelDisplay.text!)?.doubleValue)!
-            print("replacing operandStack[0]")
+           
         }else{
             self.calcEngine!.operandStack.append(displayValue);
-        print("appending to operandStack")
+      
         }
         
         decimalPointButtonPressed = false;
-        decimalPointOutlet.isEnabled = true;
         print("Operand stack on engine =\(self.calcEngine!.operandStack)");
     }
-    
     
     
     //DECIMAL POINT KEY - onClick Action
@@ -87,10 +88,25 @@ class ViewController: UIViewController {
                 userTyped = true;
             }
         }
+    }
+    
+    //SIN COS TAN SWITCH  - State Listener
+    @IBAction func sinCosTanSwitch(_ sender: UISwitch) {
+    
+        if(sender.isOn){
+            sinBtnOutlet.setTitle("Sin", for: .normal);
+            cosBtnOutlet.setTitle("Cos", for: .normal);
+            tanBtnOutlet.setTitle("Tan", for: .normal);
+        }else{
+            sinBtnOutlet.setTitle("ArcSin", for: .normal);
+            cosBtnOutlet.setTitle("ArcCos", for: .normal);
+            tanBtnOutlet.setTitle("ArcTan", for: .normal);
+        }
         
     }
     
     
+    //Check if OPERANDSTACK has default val of 0.0
     func checkOperandStackDefaultValues() -> Bool{
         if(self.calcEngine!.operandStack.first == 0.0 && self.calcEngine!.operandStack.count == 1){
             return true;
