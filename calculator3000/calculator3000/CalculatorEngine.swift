@@ -70,7 +70,11 @@ class CalculatorEngine:NSObject{
         
         //log base 10
         case "log₁₀":
-            return log10(self.operandStack.removeLast());
+            return (t)log10(self.operandStack.removeLast())  * 100000000).rounded() / 100000000;
+        
+        //Log Base e
+        case "logₑ":
+            return (log(self.operandStack.removeLast()) * 100000000).rounded() / 100000000;
             
         //PI
         case "π":

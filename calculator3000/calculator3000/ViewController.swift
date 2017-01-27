@@ -25,6 +25,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var tanBtnOutlet: UIButton!
     @IBOutlet weak var cosBtnOutlet: UIButton!
     @IBOutlet weak var sinBtnOutlet: UIButton!
+   
     
     var calcEngine : CalculatorEngine?
     var userTyped:Bool = false;
@@ -71,6 +72,21 @@ class ViewController: UIViewController {
         
         decimalPointButtonPressed = false;
         print("Operand stack on engine =\(self.calcEngine!.operandStack)");
+    }
+    
+    // DEL KEY - onClick action
+    @IBAction func deleteEnteredDigit(_ sender: UIButton) {
+        
+        
+        let delDigit: String = labelDisplay.text!;
+        let endIndex = delDigit.index(delDigit.endIndex, offsetBy: -1);
+        let truncated = delDigit.substring(to: endIndex);
+        labelDisplay.text = truncated;
+        
+        if(labelDisplay.text == ""){
+            labelDisplay.text = "0";
+        }
+        
     }
     
     
