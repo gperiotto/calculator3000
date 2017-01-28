@@ -20,13 +20,14 @@ class ViewController: UIViewController {
     }
 
     //interface builder
+    @IBOutlet weak var labelSecondScreenDisplay: UILabel!
     @IBOutlet weak var labelDisplay: UILabel!
     @IBOutlet weak var decimalPointOutlet: UIButton!
     @IBOutlet weak var tanBtnOutlet: UIButton!
     @IBOutlet weak var cosBtnOutlet: UIButton!
     @IBOutlet weak var sinBtnOutlet: UIButton!
    
-    
+    var secondScreen = Array<String>();
     var calcEngine : CalculatorEngine?
     var userTyped:Bool = false;
     var decimalPointButtonPressed:Bool = false;
@@ -36,7 +37,7 @@ class ViewController: UIViewController {
     @IBAction func digitPressed(_ sender: UIButton) {
         
         let digit = sender.currentTitle!;
-        print("digit pressed was = \(digit)");
+        //print("digit pressed was = \(digit)");
         
         if(userTyped){
             labelDisplay.text = labelDisplay.text! + "\(digit)";
@@ -45,6 +46,62 @@ class ViewController: UIViewController {
             userTyped = true;
         }
     }
+    
+    
+    @IBAction func secondScreenPopulator(_ sender: UIButton) {
+        
+        let btnPressed = sender.currentTitle!;
+        
+        secondScreen.append(btnPressed + " ");
+        
+        if(btnPressed == "+" || btnPressed == "-" || btnPressed == "×" || btnPressed == "÷" || btnPressed == "√" || btnPressed == "x²" || btnPressed == "x⁻¹" || btnPressed == "log₁₀" || btnPressed == "logₑ" || btnPressed == "π"){
+            secondScreen.append(" = " + labelDisplay.text!);
+            secondScreen.append("\n");
+        }
+        else if(btnPressed == "Sin" || btnPressed == "ArcSin" || btnPressed == "Cos" || btnPressed == "ArcCos" || btnPressed == "Tan" || btnPressed == "ArcTan"){
+            if(self.calcEngine?.degRadState == 0){
+                secondScreen.append(" = (Rad)" + labelDisplay.text!);
+                secondScreen.append("\n");
+            }else{
+                secondScreen.append(" = (Deg)" + labelDisplay.text!);
+                secondScreen.append("\n");
+            }
+        }
+        
+    
+        var join:String = "";
+        for i in secondScreen{
+            join = join + "\(i)";
+        }
+
+        
+        let arraySplit = join.components(separatedBy: "\n");
+        let arrayLast3Items = arraySplit.suffix(4);
+        
+        
+        
+        var printMe:String = "";
+        for i in arrayLast3Items{
+            printMe.append(i + "\n");
+        }
+        
+        
+        
+        if(btnPressed == "AC"){
+            labelSecondScreenDisplay.text = "...";
+            secondScreen.removeAll();
+        }else {
+            labelSecondScreenDisplay.text = "\(printMe) " ;
+            printMe = "";
+            for i in (calcEngine?.operandStack)!{
+                printMe.append("\(i) ");
+            }
+            labelSecondScreenDisplay.text = labelSecondScreenDisplay.text! + "[\(printMe)]";
+        }
+        
+        
+    }
+    
     
     
     var displayValue : Double {
@@ -74,9 +131,9 @@ class ViewController: UIViewController {
         print("Operand stack on engine =\(self.calcEngine!.operandStack)");
     }
     
+    
     // DEL KEY - onClick action
     @IBAction func deleteEnteredDigit(_ sender: UIButton) {
-        
         
         let delDigit: String = labelDisplay.text!;
         let endIndex = delDigit.index(delDigit.endIndex, offsetBy: -1);
@@ -123,15 +180,16 @@ class ViewController: UIViewController {
         
     }
     
+    
+    // RadianDegree SWITCH - State listener
     @IBAction func degRadSwitch(_ sender: UISegmentedControl) {
         if (sender.selectedSegmentIndex == 0){
-            
             self.calcEngine?.degRadState = 0;
         }else{
-            
             self.calcEngine?.degRadState = 1;
         }
     }
+    
     
     //Check if OPERANDSTACK has default val of 0.0
     func checkOperandStackDefaultValues() -> Bool{

@@ -45,7 +45,7 @@ class CalculatorEngine:NSObject{
             }
             
         //subtraction
-        case "−":
+        case "-":
             if (operandStack.count >= 2){
                 return self.operandStack.removeFirst() - self.operandStack.removeLast()
             }
@@ -62,7 +62,7 @@ class CalculatorEngine:NSObject{
             
         //reciprocal
         case "x⁻¹":
-            return 1.0 / self.operandStack.removeLast();
+            return (1.0 / self.operandStack.removeLast() * 100000000).rounded() / 100000000;
             
         //sign inversion
         case "+/-":
@@ -70,7 +70,7 @@ class CalculatorEngine:NSObject{
         
         //log base 10
         case "log₁₀":
-            return (t)log10(self.operandStack.removeLast())  * 100000000).rounded() / 100000000;
+            return (log10(self.operandStack.removeLast())  * 100000000).rounded() / 100000000;
         
         //Log Base e
         case "logₑ":
@@ -108,7 +108,6 @@ class CalculatorEngine:NSObject{
             
         case "ArcCos":
             return trigonometryCalculator(state: "acos");
-            
             
         case "Tan":
             return trigonometryCalculator(state: "tan");
