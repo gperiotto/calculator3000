@@ -31,7 +31,6 @@ class userDefaultsManager: NSObject{
         
         let array = currentArray;
         UserDefaults.standard.set(array, forKey: "savedArray")
-        print("Saved: \(array)")
         
     }
     
@@ -40,6 +39,7 @@ class userDefaultsManager: NSObject{
         
         let emptyArray  = Array<String>();
         UserDefaults.standard.set(emptyArray, forKey: "savedArray")
+        
         return true;
     }
     

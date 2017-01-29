@@ -52,7 +52,7 @@ class ViewController: UIViewController {
         }
     }
     
-    
+    //secondScreen and userDefaults recoder and labelSecondScreenDisplay populator - user inputs
     @IBAction func secondScreenPopulator(_ sender: UIButton) {
         
         let btnPressed = sender.currentTitle!;
@@ -73,41 +73,36 @@ class ViewController: UIViewController {
             }
         }
         
-    
+        //Passes secondScreen:Array<String> values to join:String
         var join:String = "";
         for i in secondScreen{
             join = join + "\(i)";
         }
         
-        //This function saves input History to userDefaults
+        //This function saves input history to userDefaults
         dataStore?.saveUserDefaults(currentArray: secondScreen);
         
         
+        //Splits join:String back to arraySplit the sorts array by last 3(plus \n) values and stores it into arrayLast3Items
         let arraySplit = join.components(separatedBy: "\n");
         let arrayLast3Items = arraySplit.suffix(4);
         
         
-        
+        //Sets labelSecondScreenDisplay new value
         var printMe:String = "";
         for i in arrayLast3Items{
             printMe.append(i + "\n");
         }
-        
-        
-        
         labelSecondScreenDisplay.text = "\(printMe) " ;
+        
+        
+        //Appends calcEngine.operandStack after labelSecondSreenDisplay new value
         printMe = "";
         for i in (calcEngine?.operandStack)!{
             printMe.append("\(i) ");
         }
         labelSecondScreenDisplay.text = labelSecondScreenDisplay.text! + "[\(printMe)]";
         
-        //if(btnPressed == "AC"){
-        //   labelSecondScreenDisplay.text = "...";
-            //secondScreen.removeAll();
-        //  }else {
-        
-        //  }
         
         
     }
@@ -174,22 +169,7 @@ class ViewController: UIViewController {
         }
     }
     
-    //SinCosTan SWITCH  - State Listener
-//    @IBAction func sinCosTanSwitch(_ sender: UISwitch) {
-//    
-//        if(sender.isOn){
-//            sinBtnOutlet.setTitle("ArcSin", for: .normal);
-//            cosBtnOutlet.setTitle("ArcCos", for: .normal);
-//            tanBtnOutlet.setTitle("ArcTan", for: .normal);
-//            
-//        }else{
-//            
-//            sinBtnOutlet.setTitle("Sin", for: .normal);
-//            cosBtnOutlet.setTitle("Cos", for: .normal);
-//            tanBtnOutlet.setTitle("Tan", for: .normal);
-//        }
-//        
-//    }
+
     
     // SinCosTan SegmentedControl - onClick State Listener
     @IBAction func SinCosTan_Arc_SegmentedControl(_ sender: UISegmentedControl) {
@@ -232,11 +212,43 @@ class ViewController: UIViewController {
             enter();
         }
         
-        self.displayValue = (self.calcEngine?.operate(operation: operation))!;
+        if (preOperationChecker(op:operation)){
+            
+            self.displayValue = (self.calcEngine?.operate(operation: operation))!;
+            enter();
+        }else{
+            self.labelDisplay.text = "ERROR";
+        }
         
-        enter();
+        
     }
     
+    
+    func preOperationChecker (op:String)-> Bool{
+        let lastStack = self.calcEngine?.operandStack.last;
+    
+        if(lastStack == nil){
+            return false;
+        }
+        else if((op == "x⁻¹" || op == "logₑ" || op == "log₁₀" || op == "÷") && lastStack == 0){
+            return false;
+        }
+        else if(( op == "logₑ" || op == "log₁₀") && lastStack! < Double(0)){
+            return false;
+        }
+        else if( op == "ArcCos" || op == "ArcSin"){
+            if(lastStack! > 1 ){
+                return false;
+            }
+            else if(lastStack! < -1){
+                return false;
+            }
+            
+        }
+        
+        
+        return true;
+    }
     
     
     //Data Passing
