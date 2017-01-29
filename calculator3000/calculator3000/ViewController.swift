@@ -12,11 +12,15 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
         if (self.calcEngine == nil) {
-            
             self.calcEngine = CalculatorEngine();
         }
+        
+        if(self.dataStore == nil){
+            self.dataStore = userDefaultsManager();
+        }
+        secondScreen = (self.dataStore?.loadUserDefaults())!;
     }
 
     //interface builder
@@ -29,6 +33,7 @@ class ViewController: UIViewController {
    
     var secondScreen = Array<String>();
     var calcEngine : CalculatorEngine?
+    var dataStore : userDefaultsManager?
     var userTyped:Bool = false;
     var decimalPointButtonPressed:Bool = false;
     
@@ -73,7 +78,10 @@ class ViewController: UIViewController {
         for i in secondScreen{
             join = join + "\(i)";
         }
-
+        
+        //This function saves input History to userDefaults
+        dataStore?.saveUserDefaults(currentArray: secondScreen);
+        
         
         let arraySplit = join.components(separatedBy: "\n");
         let arrayLast3Items = arraySplit.suffix(4);
@@ -87,23 +95,26 @@ class ViewController: UIViewController {
         
         
         
-        if(btnPressed == "AC"){
-            labelSecondScreenDisplay.text = "...";
-            secondScreen.removeAll();
-        }else {
-            labelSecondScreenDisplay.text = "\(printMe) " ;
-            printMe = "";
-            for i in (calcEngine?.operandStack)!{
-                printMe.append("\(i) ");
-            }
-            labelSecondScreenDisplay.text = labelSecondScreenDisplay.text! + "[\(printMe)]";
+        labelSecondScreenDisplay.text = "\(printMe) " ;
+        printMe = "";
+        for i in (calcEngine?.operandStack)!{
+            printMe.append("\(i) ");
         }
+        labelSecondScreenDisplay.text = labelSecondScreenDisplay.text! + "[\(printMe)]";
+        
+        //if(btnPressed == "AC"){
+        //   labelSecondScreenDisplay.text = "...";
+            //secondScreen.removeAll();
+        //  }else {
+        
+        //  }
         
         
     }
     
     
     
+    //displayValue Getter and Setter from labelDisplay
     var displayValue : Double {
         get{
             return (NumberFormatter().number(from: labelDisplay.text!)?.doubleValue)!
@@ -164,22 +175,34 @@ class ViewController: UIViewController {
     }
     
     //SinCosTan SWITCH  - State Listener
-    @IBAction func sinCosTanSwitch(_ sender: UISwitch) {
+//    @IBAction func sinCosTanSwitch(_ sender: UISwitch) {
+//    
+//        if(sender.isOn){
+//            sinBtnOutlet.setTitle("ArcSin", for: .normal);
+//            cosBtnOutlet.setTitle("ArcCos", for: .normal);
+//            tanBtnOutlet.setTitle("ArcTan", for: .normal);
+//            
+//        }else{
+//            
+//            sinBtnOutlet.setTitle("Sin", for: .normal);
+//            cosBtnOutlet.setTitle("Cos", for: .normal);
+//            tanBtnOutlet.setTitle("Tan", for: .normal);
+//        }
+//        
+//    }
     
-        if(sender.isOn){
-            sinBtnOutlet.setTitle("ArcSin", for: .normal);
-            cosBtnOutlet.setTitle("ArcCos", for: .normal);
-            tanBtnOutlet.setTitle("ArcTan", for: .normal);
-            
-        }else{
-            
+    // SinCosTan SegmentedControl - onClick State Listener
+    @IBAction func SinCosTan_Arc_SegmentedControl(_ sender: UISegmentedControl) {
+        if (sender.selectedSegmentIndex == 0){
             sinBtnOutlet.setTitle("Sin", for: .normal);
             cosBtnOutlet.setTitle("Cos", for: .normal);
             tanBtnOutlet.setTitle("Tan", for: .normal);
+        }else{
+            sinBtnOutlet.setTitle("ArcSin", for: .normal);
+            cosBtnOutlet.setTitle("ArcCos", for: .normal);
+            tanBtnOutlet.setTitle("ArcTan", for: .normal);
         }
-        
     }
-    
     
     // RadianDegree SWITCH - State listener
     @IBAction func degRadSwitch(_ sender: UISegmentedControl) {
@@ -219,9 +242,9 @@ class ViewController: UIViewController {
     //Data Passing
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let newVC: tapeViewController = segue.destination as! tapeViewController;
-        let calcHistory = labelDisplay.text;
+        let calcHistory = secondScreen;
     
-        newVC.msg = calcHistory!;
+        newVC.msg = calcHistory;
     }
 
     
