@@ -104,7 +104,6 @@ class ViewController: UIViewController {
         labelSecondScreenDisplay.text = labelSecondScreenDisplay.text! + "[\(printMe)]";
         
         
-        
     }
     
     
@@ -119,9 +118,15 @@ class ViewController: UIViewController {
         }
     }
     
+    
     // ENTER KEY - onClick action
     @IBAction func enter() {
         
+        //error message handler
+        if(labelDisplayErrorFix()){
+            return;
+        }
+
         userTyped = false;
         
         //Ensures if operandStack[0] is 0.0 to replace this value, else append new value
@@ -138,8 +143,26 @@ class ViewController: UIViewController {
     }
     
     
+    // Resets labelDisplay to 0 if contains "ERROR" message - returns boolean
+    func labelDisplayErrorFix() -> Bool{
+        
+        if(labelDisplay.text == "ERROR"){
+            labelDisplay.text = "0";
+            print("error gone")
+            return true;
+        }
+        
+        return false;
+        
+    }
+    
+    
     // DEL KEY - onClick action
     @IBAction func deleteEnteredDigit(_ sender: UIButton) {
+        
+        if(labelDisplayErrorFix()){
+            return;
+        }
         
         let delDigit: String = labelDisplay.text!;
         let endIndex = delDigit.index(delDigit.endIndex, offsetBy: -1);
@@ -151,12 +174,12 @@ class ViewController: UIViewController {
         }
         
     }
-    
+
     
     //DECIMAL POINT KEY - onClick Action
     @IBAction func decimalPointClicked(_ sender: UIButton) {
 
-        if(checkOperandStackDefaultValues()){
+        if(userTyped == false && checkOperandStackDefaultValues()){
             labelDisplay.text = "0.";
             userTyped = true;
         }else{
@@ -223,7 +246,7 @@ class ViewController: UIViewController {
         
     }
     
-    
+    //Operation error handling
     func preOperationChecker (op:String)-> Bool{
         let lastStack = self.calcEngine?.operandStack.last;
     
@@ -233,7 +256,7 @@ class ViewController: UIViewController {
         else if((op == "x⁻¹" || op == "logₑ" || op == "log₁₀" || op == "÷") && lastStack == 0){
             return false;
         }
-        else if(( op == "logₑ" || op == "log₁₀") && lastStack! < Double(0)){
+        else if(( op == "logₑ" || op == "log₁₀" || op == "√") && lastStack! < Double(0)){
             return false;
         }
         else if( op == "ArcCos" || op == "ArcSin"){

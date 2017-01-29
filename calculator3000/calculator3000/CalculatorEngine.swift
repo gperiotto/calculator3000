@@ -33,21 +33,35 @@ class CalculatorEngine:NSObject{
             
         //division
         case "÷":
-            
             if (operandStack.count >= 2){
-                return self.operandStack.removeFirst() / self.operandStack.removeLast()
+                
+                let devide2 = self.operandStack.removeLast();
+                let devide1 = self.operandStack.removeLast();
+                
+                return devide1 / devide2;
+                //return self.operandStack.removeFirst() / self.operandStack.removeLast()
             }
             
         //addition
         case "+":
             if (operandStack.count >= 2){
-                return self.operandStack.removeLast() + self.operandStack.removeLast()
+                let add2 = self.operandStack.removeLast();
+                let add1 = self.operandStack.removeLast();
+                
+                return add1 + add2;
+                
+                //return self.operandStack.removeLast() + self.operandStack.removeLast()
             }
             
         //subtraction
         case "-":
             if (operandStack.count >= 2){
-                return self.operandStack.removeFirst() - self.operandStack.removeLast()
+                
+                let subtract2 = self.operandStack.removeLast();
+                let subtract1 = self.operandStack.removeLast();
+                
+                return subtract1 - subtract2;
+                //return self.operandStack.removeFirst() - self.operandStack.removeLast()
             }
             
         //square root
