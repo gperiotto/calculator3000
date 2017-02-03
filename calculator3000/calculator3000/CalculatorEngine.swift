@@ -114,19 +114,19 @@ class CalculatorEngine:NSObject{
         case "Sin":
             return trigonometryCalculator(state: "sin");
             
-        case "ArcSin":
+        case "Sin⁻¹":
             return trigonometryCalculator(state: "asin");
             
         case "Cos":
             return trigonometryCalculator(state: "cos");
             
-        case "ArcCos":
+        case "Cos⁻¹":
             return trigonometryCalculator(state: "acos");
             
         case "Tan":
             return trigonometryCalculator(state: "tan");
             
-        case "ArcTan":
+        case "Tan⁻¹":
             return trigonometryCalculator(state: "atan");
         
             

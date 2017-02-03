@@ -20,6 +20,7 @@ class ViewController: UIViewController {
         if(self.dataStore == nil){
             self.dataStore = userDefaultsManager();
         }
+        
         secondScreen = (self.dataStore?.loadUserDefaults())!;
     }
 
@@ -30,6 +31,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var tanBtnOutlet: UIButton!
     @IBOutlet weak var cosBtnOutlet: UIButton!
     @IBOutlet weak var sinBtnOutlet: UIButton!
+    
+   
    
     var secondScreen = Array<String>();
     var calcEngine : CalculatorEngine?
@@ -63,7 +66,7 @@ class ViewController: UIViewController {
             secondScreen.append(" = " + labelDisplay.text!);
             secondScreen.append("\n");
         }
-        else if(btnPressed == "Sin" || btnPressed == "ArcSin" || btnPressed == "Cos" || btnPressed == "ArcCos" || btnPressed == "Tan" || btnPressed == "ArcTan"){
+        else if(btnPressed == "Sin" || btnPressed == "Sin⁻¹" || btnPressed == "Cos" || btnPressed == "Cos⁻¹" || btnPressed == "Tan" || btnPressed == "Tan⁻¹"){
             if(self.calcEngine?.degRadState == 0){
                 secondScreen.append(" = (Rad)" + labelDisplay.text!);
                 secondScreen.append("\n");
@@ -201,9 +204,9 @@ class ViewController: UIViewController {
             cosBtnOutlet.setTitle("Cos", for: .normal);
             tanBtnOutlet.setTitle("Tan", for: .normal);
         }else{
-            sinBtnOutlet.setTitle("ArcSin", for: .normal);
-            cosBtnOutlet.setTitle("ArcCos", for: .normal);
-            tanBtnOutlet.setTitle("ArcTan", for: .normal);
+            sinBtnOutlet.setTitle("Sin⁻¹", for: .normal);
+            cosBtnOutlet.setTitle("Cos⁻¹", for: .normal);
+            tanBtnOutlet.setTitle("Tan⁻¹", for: .normal);
         }
     }
     
@@ -259,7 +262,7 @@ class ViewController: UIViewController {
         else if(( op == "logₑ" || op == "log₁₀" || op == "√") && lastStack! < Double(0)){
             return false;
         }
-        else if( op == "ArcCos" || op == "ArcSin"){
+        else if( op == "Cos⁻¹" || op == "Sin⁻¹"){
             if(lastStack! > 1 ){
                 return false;
             }
