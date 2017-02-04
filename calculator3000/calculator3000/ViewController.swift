@@ -60,6 +60,11 @@ class ViewController: UIViewController {
         
         let btnPressed = sender.currentTitle!;
         
+        // stops DEL btn from being pressed unnecessarily
+        if((btnPressed == "DEL" || btnPressed == "↵") && labelDisplay.text == "0"){
+            return;
+        }
+        
         secondScreen.append(btnPressed + " ");
         
         if(btnPressed == "+" || btnPressed == "-" || btnPressed == "×" || btnPressed == "÷" || btnPressed == "√" || btnPressed == "x²" || btnPressed == "x⁻¹" || btnPressed == "log₁₀" || btnPressed == "logₑ" || btnPressed == "π"){
@@ -74,7 +79,10 @@ class ViewController: UIViewController {
                 secondScreen.append(" = (Deg)" + labelDisplay.text!);
                 secondScreen.append("\n");
             }
+        }else if(btnPressed == "DEL"){
+            deleteEnteredDigit();
         }
+        
         
         //Passes secondScreen:Array<String> values to join:String
         var join:String = "";
@@ -125,6 +133,11 @@ class ViewController: UIViewController {
     // ENTER KEY - onClick action
     @IBAction func enter() {
         
+        if(labelDisplay.text == "0" || labelDisplay.text == "0.0" || labelDisplay.text == ".0"){
+            print("nothing to add");
+            return;
+        }
+        
         //error message handler
         if(labelDisplayErrorFix()){
             return;
@@ -161,7 +174,9 @@ class ViewController: UIViewController {
     
     
     // DEL KEY - onClick action
-    @IBAction func deleteEnteredDigit(_ sender: UIButton) {
+    func deleteEnteredDigit() {
+        
+        
         
         if(labelDisplayErrorFix()){
             return;
@@ -269,17 +284,17 @@ class ViewController: UIViewController {
             else if(lastStack! < -1){
                 return false;
             }
-            
         }
-        
         
         return true;
     }
     
     
-    //Data Passing
+    //Data Passing between windows
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let newVC: tapeViewController = segue.destination as! tapeViewController;
+        
+        //Array<String>
         let calcHistory = secondScreen;
     
         newVC.msg = calcHistory;

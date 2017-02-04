@@ -8,7 +8,7 @@
 
 import UIKit
 
-class tapeViewController: UIViewController {
+class tapeViewController: UIViewController{
 
     @IBOutlet weak var textViewTape: UITextView!
     
@@ -17,27 +17,6 @@ class tapeViewController: UIViewController {
     let uiAlertMessage = "This will clear all previously saved data";
     var msg = Array<String>();
     var dataStore : userDefaultsManager?;
-
-    
-    //Clear saved data button - Launches UIAlert
-    @IBAction func clearSavedData(_ sender: UIButton) {
-    
-        let alert = UIAlertController(title: uiAlertTitle, message: uiAlertMessage, preferredStyle: UIAlertControllerStyle.alert);
-        
-        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: { action in
-            
-            if(self.dataStore?.wipeUserDefaults())!{
-                self.textViewTape.text = "..."
-            }
-            print("userDefaults cleared");
-            
-        }));
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil));
-        
-        // display alert
-        self.present(alert, animated: true, completion: nil);
-    
-    }
 
     
     
@@ -54,24 +33,42 @@ class tapeViewController: UIViewController {
         for i in stringSplitter{
             printMe.append("\(i)");
         }
-
+        
+        print("msg: \(msg)")
+        print("printMe: " + printMe);
+        
         textViewTape.text = printMe;
+        
+    }
+    
+   
+    //Clear saved data button - Launches UIAlert
+    @IBAction func clearSavedData(_ sender: UIButton) {
+        
+        let alert = UIAlertController(title: uiAlertTitle, message: uiAlertMessage, preferredStyle: UIAlertControllerStyle.alert);
+        
+        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: { action in
+            
+            if(self.dataStore?.wipeUserDefaults())!{
+                self.textViewTape.text = "..."
+            }
+            print("userDefaults cleared");
+            
+        }));
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil));
+        
+        // display alert
+        self.present(alert, animated: true, completion: nil);
+        
     }
 
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
