@@ -10,6 +10,26 @@ import UIKit
 
 class ViewController: UIViewController {
 
+
+    //interface builder
+    @IBOutlet weak var labelSecondScreenDisplay: UILabel!
+    @IBOutlet weak var labelDisplay: UILabel!
+    @IBOutlet weak var decimalPointOutlet: UIButton!
+    @IBOutlet weak var tanBtnOutlet: UIButton!
+    @IBOutlet weak var cosBtnOutlet: UIButton!
+    @IBOutlet weak var sinBtnOutlet: UIButton!
+    @IBOutlet weak var tapeSwipeLabel: UILabel!
+    
+
+   
+    var secondScreen = Array<String>();
+    var calcEngine : CalculatorEngine?
+    var dataStore : userDefaultsManager?
+    var userTyped:Bool = false;
+    var decimalPointButtonPressed:Bool = false;
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -21,24 +41,45 @@ class ViewController: UIViewController {
             self.dataStore = userDefaultsManager();
         }
         
+        //loads from userDefaults
         secondScreen = (self.dataStore?.loadUserDefaults())!;
+        
+        //On swipe RIGHT run func swipeToTapeView
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(ViewController.swipeToTapeView(sender:)));
+        rightSwipe.direction = .right;
+        tapeSwipeLabel.addGestureRecognizer(rightSwipe);
+        
+        
+        
+        //Hides elements
+        //btnRow1.center.x -= view.bounds.width
+        
+        
+       
+       // animatedStackedViews();
     }
-
-    //interface builder
-    @IBOutlet weak var labelSecondScreenDisplay: UILabel!
-    @IBOutlet weak var labelDisplay: UILabel!
-    @IBOutlet weak var decimalPointOutlet: UIButton!
-    @IBOutlet weak var tanBtnOutlet: UIButton!
-    @IBOutlet weak var cosBtnOutlet: UIButton!
-    @IBOutlet weak var sinBtnOutlet: UIButton!
     
-   
-   
-    var secondScreen = Array<String>();
-    var calcEngine : CalculatorEngine?
-    var dataStore : userDefaultsManager?
-    var userTyped:Bool = false;
-    var decimalPointButtonPressed:Bool = false;
+    
+    func animatedStackedViews(){
+        
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
+            
+            
+            
+        }, completion: nil)
+        
+    }
+    
+    
+    //lanches tapeViewController on tapeSwipeLabel swipe right
+    func swipeToTapeView(sender:UISwipeGestureRecognizer) {
+        
+        let controller = storyboard?.instantiateViewController(withIdentifier: "tapeView") as! tapeViewController;
+        present(controller, animated: true, completion: nil);
+        
+    }
+    
+    
     
     
     //onClick Listener
@@ -290,14 +331,12 @@ class ViewController: UIViewController {
     }
     
     
-    //Data Passing between windows
+    //Data Passing between windows on segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let newVC: tapeViewController = segue.destination as! tapeViewController;
         
-        //Array<String>
-        let calcHistory = secondScreen;
-    
-        newVC.msg = calcHistory;
+        //let newVC: tapeViewController = segue.destination as! tapeViewController;
+        //let calcHistory = secondScreen;
+        //newVC.savedDataToRestore = calcHistory;
     }
 
     

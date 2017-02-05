@@ -11,11 +11,11 @@ import UIKit
 class tapeViewController: UIViewController{
 
     @IBOutlet weak var textViewTape: UITextView!
-    
+    @IBOutlet weak var swipeToMainView: UILabel!
     
     let uiAlertTitle = "Clear saved data?"
     let uiAlertMessage = "This will clear all previously saved data";
-    var msg = Array<String>();
+    var savedDataToRestore = Array<String>();
     var dataStore : userDefaultsManager?;
 
     
@@ -27,21 +27,28 @@ class tapeViewController: UIViewController{
             self.dataStore = userDefaultsManager();
         }
         
+        savedDataToRestore = (self.dataStore?.loadUserDefaults())!;
         
-        let stringSplitter = msg;
-        var printMe = "";
-        for i in stringSplitter{
-            printMe.append("\(i)");
-        }
+        populateTextView();
         
-        print("msg: \(msg)")
-        print("printMe: " + printMe);
         
-        textViewTape.text = printMe;
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(tapeViewController.swipeToGoBack(sender:)));
+        leftSwipe.direction = .left;
+        swipeToMainView.addGestureRecognizer(leftSwipe);
         
     }
     
    
+    //lanches tapeViewController on tapeSwipeLabel swipe right
+    func swipeToGoBack(sender:UISwipeGestureRecognizer) {
+        
+        
+        let controller = storyboard?.instantiateViewController(withIdentifier: "mainView") as! ViewController;
+        present(controller, animated: true, completion: nil);
+        
+    }
+    
+    
     //Clear saved data button - Launches UIAlert
     @IBAction func clearSavedData(_ sender: UIButton) {
         
@@ -62,6 +69,17 @@ class tapeViewController: UIViewController{
         
     }
 
+    
+    func populateTextView (){
+        
+        let stringSplitter = savedDataToRestore;
+        var printMe = "";
+        for i in stringSplitter{
+            printMe.append("\(i)");
+        }
+        
+        textViewTape.text = printMe;
+    }
     
     
     override func didReceiveMemoryWarning() {
