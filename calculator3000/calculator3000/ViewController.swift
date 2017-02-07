@@ -26,6 +26,7 @@ class ViewController: UIViewController {
     var calcEngine : CalculatorEngine?
     var dataStore : userDefaultsManager?
     var userTyped:Bool = false;
+    
     var decimalPointButtonPressed:Bool = false;
     
     
@@ -50,25 +51,11 @@ class ViewController: UIViewController {
         tapeSwipeLabel.addGestureRecognizer(rightSwipe);
         
         
-        
-        //Hides elements
-        //btnRow1.center.x -= view.bounds.width
-        
-        
-       
-       // animatedStackedViews();
+        // Makes text resize to fit width of label
+        labelDisplay.adjustsFontSizeToFitWidth = true;
+        labelSecondScreenDisplay.adjustsFontSizeToFitWidth = true;
     }
-    
-    
-    func animatedStackedViews(){
-        
-        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
-            
-            
-            
-        }, completion: nil)
-        
-    }
+
     
     
     //lanches tapeViewController on tapeSwipeLabel swipe right
@@ -96,6 +83,7 @@ class ViewController: UIViewController {
         }
     }
     
+    
     //secondScreen and userDefaults recoder and labelSecondScreenDisplay populator - user inputs
     @IBAction func secondScreenPopulator(_ sender: UIButton) {
         
@@ -105,6 +93,12 @@ class ViewController: UIViewController {
         if((btnPressed == "DEL" || btnPressed == "↵") && labelDisplay.text == "0"){
             return;
         }
+        
+        
+        if((btnPressed == "C" || btnPressed == "AC" ) && labelDisplay.text == "ERROR"){
+            return;
+        }
+        
         
         secondScreen.append(btnPressed + " ");
         
@@ -176,6 +170,9 @@ class ViewController: UIViewController {
         
         if(labelDisplay.text == "0" || labelDisplay.text == "0.0" || labelDisplay.text == ".0"){
             print("nothing to add");
+            if(labelDisplay.text == "0.0"){
+                labelDisplay.text = "0";
+            }
             return;
         }
         
@@ -238,17 +235,44 @@ class ViewController: UIViewController {
     //DECIMAL POINT KEY - onClick Action
     @IBAction func decimalPointClicked(_ sender: UIButton) {
 
-        if(userTyped == false && checkOperandStackDefaultValues()){
-            labelDisplay.text = "0.";
-            userTyped = true;
-        }else{
-            if(userTyped && (labelDisplay.text?.range(of: ".")) == nil ){
+//        if(userTyped == false && checkOperandStackDefaultValues()){
+//            labelDisplay.text = "0.";
+//            userTyped = true;
+//        }else{
+//            if(userTyped && (labelDisplay.text?.range(of: ".")) == nil ){
+//                labelDisplay.text = labelDisplay.text! + ".";
+//            }else if(!userTyped && (labelDisplay.text?.range(of: ".")) == nil ){
+//                labelDisplay.text = "0.";
+//                userTyped = true;
+//            }
+//        }
+        
+        if(userTyped){
+            
+            if(labelDisplay.text?.range(of: ".") == nil){
+                print("userTyped NO decimal")
                 labelDisplay.text = labelDisplay.text! + ".";
-            }else if(!userTyped && (labelDisplay.text?.range(of: ".")) == nil ){
+                
+            }else{
+                print("userTyped and HAS decimal - do nothing");
+            }
+            
+            
+        }else{
+            
+            if(labelDisplay.text?.range(of: ".") == nil){
+                print("!userTyped and NO decimal - so replace with 0.");
+        
                 labelDisplay.text = "0.";
                 userTyped = true;
+            }else{
+                labelDisplay.text = "0.";
+                userTyped  = true;
+                print("!userTyped and HAS decimal - so replace labelDisplay with 0.");
             }
+            
         }
+        
     }
     
 
@@ -299,7 +323,14 @@ class ViewController: UIViewController {
             self.displayValue = (self.calcEngine?.operate(operation: operation))!;
             enter();
         }else{
+            
             self.labelDisplay.text = "ERROR";
+            
+            
+            //Resets error message to 0 is user pressed C or AC
+            if(sender.currentTitle == "C" || sender.currentTitle == "AC"){
+                self.labelDisplay.text = "0"
+            }
         }
         
         
