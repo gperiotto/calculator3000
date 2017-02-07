@@ -54,10 +54,12 @@ class ViewController: UIViewController {
         // Makes text resize to fit width of label
         labelDisplay.adjustsFontSizeToFitWidth = true;
         labelSecondScreenDisplay.adjustsFontSizeToFitWidth = true;
+        
+    
     }
+    
+    
 
-    
-    
     //lanches tapeViewController on tapeSwipeLabel swipe right
     func swipeToTapeView(sender:UISwipeGestureRecognizer) {
         
@@ -65,7 +67,7 @@ class ViewController: UIViewController {
         present(controller, animated: true, completion: nil);
         
     }
-    
+
     
     
     
@@ -325,8 +327,7 @@ class ViewController: UIViewController {
         }else{
             
             self.labelDisplay.text = "ERROR";
-            
-            
+    
             //Resets error message to 0 is user pressed C or AC
             if(sender.currentTitle == "C" || sender.currentTitle == "AC"){
                 self.labelDisplay.text = "0"

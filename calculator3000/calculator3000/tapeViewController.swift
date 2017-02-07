@@ -36,6 +36,10 @@ class tapeViewController: UIViewController{
         leftSwipe.direction = .left;
         swipeToMainView.addGestureRecognizer(leftSwipe);
         
+    
+        
+        
+        
     }
     
    

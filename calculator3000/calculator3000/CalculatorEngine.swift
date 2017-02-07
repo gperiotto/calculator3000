@@ -39,7 +39,6 @@ class CalculatorEngine:NSObject{
                 let devide1 = self.operandStack.removeLast();
                 
                 return devide1 / devide2;
-                //return self.operandStack.removeFirst() / self.operandStack.removeLast()
             }
             
         //addition
@@ -50,7 +49,6 @@ class CalculatorEngine:NSObject{
                 
                 return add1 + add2;
                 
-                //return self.operandStack.removeLast() + self.operandStack.removeLast()
             }
             
         //subtraction
@@ -61,7 +59,7 @@ class CalculatorEngine:NSObject{
                 let subtract1 = self.operandStack.removeLast();
                 
                 return subtract1 - subtract2;
-                //return self.operandStack.removeFirst() - self.operandStack.removeLast()
+
             }
             
         //square root
@@ -146,6 +144,7 @@ class CalculatorEngine:NSObject{
         
         
         if(degRadState==1){
+            
             if(state == "sin"){
                 result = sin(self.operandStack.removeLast() * myPi / 180);
             }else if(state == "asin"){
@@ -163,6 +162,7 @@ class CalculatorEngine:NSObject{
             }else if(state == "atan"){
                 result = atan(self.operandStack.removeLast()) * (180 / myPi);
             }
+            
         }else{
             
             if(state == "sin"){
