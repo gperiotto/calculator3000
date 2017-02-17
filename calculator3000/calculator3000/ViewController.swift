@@ -338,6 +338,7 @@ class ViewController: UIViewController {
                 return;
             }
 
+            //dare you to crash it now
             
             
             //self.displayValue = (self.calcEngine?.operate(operation: operation))!;
