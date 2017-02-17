@@ -159,6 +159,16 @@ class ViewController: UIViewController {
     //displayValue Getter and Setter from labelDisplay
     var displayValue : Double {
         get{
+            //print(labelDisplay.text!);
+            
+            
+//            if (NumberFormatter().number(from: labelDisplay.text!)?.doubleValue.isInfinite)!{
+//            print ("infinite")
+//                
+//                return 0 ;
+//            }
+            
+            
             return (NumberFormatter().number(from: labelDisplay.text!)?.doubleValue)!
         }
         set(newValue){
@@ -215,8 +225,6 @@ class ViewController: UIViewController {
     
     // DEL KEY - onClick action
     func deleteEnteredDigit() {
-        
-        
         
         if(labelDisplayErrorFix()){
             return;
@@ -320,9 +328,21 @@ class ViewController: UIViewController {
             enter();
         }
         
+        //This block handles computational error. -> This also includes infinite  numbers 
         if (preOperationChecker(op:operation)){
             
-            self.displayValue = (self.calcEngine?.operate(operation: operation))!;
+            let calcEngineResult = self.calcEngine?.operate(operation: operation);
+            if((calcEngineResult?.isInfinite)! || (calcEngineResult?.isNaN)!){
+                print("nan Value found or inf");
+                self.labelDisplay.text = "ERROR";
+                return;
+            }
+
+            
+            
+            //self.displayValue = (self.calcEngine?.operate(operation: operation))!;
+            
+            self.displayValue = calcEngineResult!;
             enter();
         }else{
             
