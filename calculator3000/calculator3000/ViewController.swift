@@ -77,6 +77,11 @@ class ViewController: UIViewController {
         let digit = sender.currentTitle!;
         //print("digit pressed was = \(digit)");
         
+        if(labelDisplay.text == "ERROR"){
+            labelDisplay.text = "";
+            print("Error message found and replaced");
+        }
+        
         if(userTyped){
             labelDisplay.text = labelDisplay.text! + "\(digit)";
         }else{
