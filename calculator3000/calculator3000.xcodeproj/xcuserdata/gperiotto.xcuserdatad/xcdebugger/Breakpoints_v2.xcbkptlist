@@ -10,27 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "calculator3000/CalculatorEngine.swift"
-            timestampString = "509900525.785882"
+            timestampString = "509911486.947781"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "204"
-            endingLineNumber = "204">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "calculator3000/CalculatorEngine.swift"
-            timestampString = "509900525.785882"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "144"
-            endingLineNumber = "144"
-            landmarkName = "trigonometryCalculator(state:)"
-            landmarkType = "7">
+            startingLineNumber = "205"
+            endingLineNumber = "205">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -74,7 +74,7 @@ class CalculatorEngine:NSObject{
             
         //reciprocal
         case "x⁻¹":
-            return (1.0 / self.operandStack.removeLast() * 100000000).rounded() / 100000000;
+            return (1.0 / self.operandStack.removeLast());
             
         //sign inversion
         case "+/-":
@@ -82,13 +82,13 @@ class CalculatorEngine:NSObject{
         
         //log base 10
         case "log₁₀":
-            return (log10(self.operandStack.removeLast())  * 100000000).rounded() / 100000000;
+            return (log10(self.operandStack.removeLast()));
         
         //Log Base e
         case "logₑ":
-            return (log(self.operandStack.removeLast()) * 100000000).rounded() / 100000000;
+            return (log(self.operandStack.removeLast()));
             
-        //PI
+        //PI- NOT IN USE
         case "π":
             //return (myPi * 100000000).rounded() / 100000000;
             return ((self.operandStack.removeLast() * myPi) * 100000000).rounded() / 100000000;
@@ -187,7 +187,8 @@ class CalculatorEngine:NSObject{
         }
         
         
-        return (result * 100000000).rounded() / 100000000;
+        //return (result * 100000000).rounded() / 100000000;
+        return result;
     }
     
     
