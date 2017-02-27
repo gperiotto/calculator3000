@@ -90,6 +90,7 @@ class CalculatorEngine:NSObject{
             
         //PI
         case "π":
+            //return (myPi * 100000000).rounded() / 100000000;
             return ((self.operandStack.removeLast() * myPi) * 100000000).rounded() / 100000000;
             
         //clear last

@@ -68,10 +68,19 @@ class ViewController: UIViewController {
         
     }
 
+    //Pi BTN Funtionality - onClick Listener
+    @IBAction func piBtnPressed(_ sender: UIButton) {
+        
+        
+        let myPi = (M_PI * 100000000).rounded() / 100000000;
+        
+        userTyped = false;
+        
+        labelDisplay.text = "\(myPi)";
+    }
     
     
-    
-    //onClick Listener
+    //Numeric digit btn - onClick Listener
     @IBAction func digitPressed(_ sender: UIButton) {
         
         let digit = sender.currentTitle!;
@@ -109,7 +118,7 @@ class ViewController: UIViewController {
         
         secondScreen.append(btnPressed + " ");
         
-        if(btnPressed == "+" || btnPressed == "-" || btnPressed == "×" || btnPressed == "÷" || btnPressed == "√" || btnPressed == "x²" || btnPressed == "x⁻¹" || btnPressed == "log₁₀" || btnPressed == "logₑ" || btnPressed == "π"){
+        if(btnPressed == "+" || btnPressed == "-" || btnPressed == "×" || btnPressed == "÷" || btnPressed == "√" || btnPressed == "x²" || btnPressed == "x⁻¹" || btnPressed == "log₁₀" || btnPressed == "logₑ"){
             secondScreen.append(" = " + labelDisplay.text!);
             secondScreen.append("\n");
         }
@@ -164,16 +173,6 @@ class ViewController: UIViewController {
     //displayValue Getter and Setter from labelDisplay
     var displayValue : Double {
         get{
-            //print(labelDisplay.text!);
-            
-            
-//            if (NumberFormatter().number(from: labelDisplay.text!)?.doubleValue.isInfinite)!{
-//            print ("infinite")
-//                
-//                return 0 ;
-//            }
-            
-            
             return (NumberFormatter().number(from: labelDisplay.text!)?.doubleValue)!
         }
         set(newValue){
@@ -198,6 +197,7 @@ class ViewController: UIViewController {
             return;
         }
 
+        //resets userTyped
         userTyped = false;
         
         //Ensures if operandStack[0] is 0.0 to replace this value, else append new value
@@ -249,18 +249,6 @@ class ViewController: UIViewController {
     
     //DECIMAL POINT KEY - onClick Action
     @IBAction func decimalPointClicked(_ sender: UIButton) {
-
-//        if(userTyped == false && checkOperandStackDefaultValues()){
-//            labelDisplay.text = "0.";
-//            userTyped = true;
-//        }else{
-//            if(userTyped && (labelDisplay.text?.range(of: ".")) == nil ){
-//                labelDisplay.text = labelDisplay.text! + ".";
-//            }else if(!userTyped && (labelDisplay.text?.range(of: ".")) == nil ){
-//                labelDisplay.text = "0.";
-//                userTyped = true;
-//            }
-//        }
         
         if(userTyped){
             
@@ -276,10 +264,11 @@ class ViewController: UIViewController {
         }else{
             
             if(labelDisplay.text?.range(of: ".") == nil){
+                
                 print("!userTyped and NO decimal - so replace with 0.");
-        
                 labelDisplay.text = "0.";
                 userTyped = true;
+                
             }else{
                 labelDisplay.text = "0.";
                 userTyped  = true;
@@ -342,14 +331,10 @@ class ViewController: UIViewController {
                 self.labelDisplay.text = "ERROR";
                 return;
             }
-
-            //dare you to crash it now
-            
-            
-            //self.displayValue = (self.calcEngine?.operate(operation: operation))!;
             
             self.displayValue = calcEngineResult!;
             enter();
+            
         }else{
             
             self.labelDisplay.text = "ERROR";
@@ -359,8 +344,6 @@ class ViewController: UIViewController {
                 self.labelDisplay.text = "0"
             }
         }
-        
-        
     }
     
     //Operation error handling
@@ -389,7 +372,7 @@ class ViewController: UIViewController {
     }
     
     
-    //Data Passing between windows on segue
+    //Data Passing between windows on segue - NOT USED
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         //let newVC: tapeViewController = segue.destination as! tapeViewController;

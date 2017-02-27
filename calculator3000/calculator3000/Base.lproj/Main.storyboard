@@ -379,8 +379,8 @@
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="operation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6bM-mY-qTx"/>
-                                            <action selector="secondScreenPopulator:" destination="BYZ-38-t0r" eventType="touchUpInside" id="l2f-oS-DWh"/>
+                                            <action selector="piBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="iCG-Ng-5BQ"/>
+                                            <action selector="secondScreenPopulator:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aR7-bh-Ma8"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="URm-4u-qwg">
